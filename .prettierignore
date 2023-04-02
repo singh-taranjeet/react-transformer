@@ -1,0 +1,17 @@
+.vscode-test/
+out/
+test-fixtures/
+node_modules/
+**/*.test.ts
+__mocks__
+.nyc_output
+.vscode
+build/
+coverage/
+docs/
+hooks/
+logs/
+nvm/
+public/
+reporters/
+test-results/
