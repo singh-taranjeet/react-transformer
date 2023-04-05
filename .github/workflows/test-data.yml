@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      with:
+        with:
           node-version: 16.x
           registry-url: https://registry.npmjs.org/
+      - name: Run Test
       - run: npm install && npm run test
