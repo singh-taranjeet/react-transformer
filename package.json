@@ -1,62 +1,34 @@
 {
-  "name": "@react-transformer/replacer",
-  "version": "1.0.2",
-  "description": "Transform simple string patterns to React components",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "name": "react-transformer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
-    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
-    "build": "npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run prettier && npm run lint",
-    "test":"jest --config jestconfig.json",
-    "test:dev": "jest --config jestconfig.json --watchAll",
-    "publish": "npm publish --access public"
-  },
-  "keywords": [
-    "react",
-    "typescript",
-    "pattern-to-react-components"
-  ],
-  "author": "Taranjeet Singh",
-  "license": "MIT",
-  "dependencies": {
-    "@types/react": "^18.0.31",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript": "^5.0.3"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^14.0.0",
-    "@types/jest": "^29.5.0",
-    "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@typescript-eslint/parser": "^5.57.0",
-    "eslint": "^8.37.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "jest": "^29.5.0",
-    "jest-canvas-mock": "^2.5.0",
-    "jest-environment-jsdom": "^29.5.0",
-    "prettier": "^2.8.7",
-    "ts-jest": "^29.1.0"
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --dist-dir docs --public-url ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/singh-taranjeet/react-transformer.git"
   },
-  "peerDependencies": {
-    "react": ">=16"
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/singh-taranjeet/react-transformer/issues"
   },
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ]
+  "homepage": "https://github.com/singh-taranjeet/react-transformer#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "my-react-typescript-package": "^1.0.0",
+    "parcel": "^2.8.3",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "@react-transformer/replacer": "^1.0.3"
+  }
 }
