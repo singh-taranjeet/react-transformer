@@ -19,16 +19,15 @@
   },
   "homepage": "https://github.com/singh-taranjeet/react-transformer#readme",
   "devDependencies": {
-    "@types/react": "^18.0.33",
-    "@types/react-dom": "^18.0.11",
-    "my-react-typescript-package": "^1.0.0",
     "parcel": "^2.8.3",
     "process": "^0.11.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "typescript": "^5.0.3"
   },
   "dependencies": {
-    "@react-transformer/replacer": "^1.0.3"
+    "@react-transformer/replacer": "*",
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
