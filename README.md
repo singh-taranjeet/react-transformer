@@ -1,4 +1,6 @@
-# my-react-typescript-package
+# @react-transformer/replacer
+
+## Convert string text to React components
 
 [![NPM version][npm-image]][npm-url]
 [![Build][github-build]][github-build-url]
