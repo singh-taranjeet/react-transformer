@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render, screen } from './utils'
+import { render, screen } from './test-tools'
 
 import { Replacer } from '../src'
 import { Button } from './components/Button'

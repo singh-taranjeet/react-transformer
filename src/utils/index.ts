@@ -46,12 +46,17 @@ export const getPatterns = (str: string, config: IConfig): IPattern[] => {
                             if (subSuffix === suffix) {
                               // Last suffix is also found
                               // Pattern found complete
-                              patternsFound.push({
-                                type: subType,
-                                data: JSON.parse(subJsonData),
-                                startPosition: index - (prefix.length - 1),
-                                endPosition: k,
-                              })
+                              // check if JSON is valid
+                              try {
+                                patternsFound.push({
+                                  type: subType,
+                                  data: JSON.parse(subJsonData),
+                                  startPosition: index - (prefix.length - 1),
+                                  endPosition: k,
+                                })
+                              } catch (error) {
+                                // json was invalid
+                              }
                             }
                             continueLooping = false
                             index = k + 1
