@@ -1,6 +1,6 @@
 {
   "name": "@react-transformer/replacer",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Transform simple string patterns to React components",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -20,7 +20,7 @@
   "keywords": [
     "react",
     "typescript",
-    "pattern-to-react-components"
+    "string to react components"
   ],
   "author": "Taranjeet Singh",
   "license": "MIT",
