@@ -15,3 +15,4 @@ nvm/
 public/
 reporters/
 test-results/
+coverage

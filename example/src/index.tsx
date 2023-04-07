@@ -10,7 +10,6 @@ interface IComponent {
 
 const Button = (props: IComponent) => {
   const { text } = props.data
-
   return <button>{text}</button>
 }
 

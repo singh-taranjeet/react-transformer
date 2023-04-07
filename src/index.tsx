@@ -1,138 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOMClient from 'react-dom/client'
+import { IReactTransformer, IPattern } from './types'
+import { getId, getPatterns } from './utils'
 
-export interface IComponent {
-  data: {
-    text: string
-  }
-}
-
-const prefix = 'text-replacer'
-
-function getId(length = 5) {
-  let result = `${prefix}`
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  const charactersLength = characters.length
-  let counter = 0
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength))
-    counter += 1
-  }
-  return result
-}
-
-interface IProps {
-  config: {
-    pattern: {
-      prefix: string
-      suffix: string
-      seperator: string
-    }
-    elementTypes: {
-      [type: string]: React.ComponentType<IComponent>
-    }
-  }
-  children: React.ReactNode
-}
-
-interface Pattern {
-  data: any
-  type: string
-  startPosition: number
-  endPosition: number
-}
-
-export const Replacer = (props: IProps) => {
+export const Replacer = (props: IReactTransformer) => {
   const [componentId] = useState(getId())
-  const { suffix, seperator, prefix } = props.config.pattern
-  const { elementTypes } = props.config
-
-  const getPatterns = (str: string): Pattern[] => {
-    let subPattern = ''
-    let index = 0
-    const patternsFound: Pattern[] = []
-    // console.log("str", str);
-
-    // find prefix
-    for (index; index < str.length; index++) {
-      subPattern += str[index]
-
-      if (subPattern.length === prefix.length) {
-        if (subPattern === prefix && str[index + 1] === seperator) {
-          // pattern start is found
-          // Now search for type and json data
-          // interate the remaining characters till first seperator is found
-          let subType = ''
-          let continueLooping = true
-          for (let i = index + 2; i < str.length; i++) {
-            if (continueLooping) {
-              // search if seperator befor json data is found
-              if (str[i] !== seperator) {
-                subType += str[i]
-              } else {
-                // type is now found
-                // validate type
-                if (elementTypes[subType]) {
-                  // type is valid
-                  // search if last seperator and suffic is found
-                  let subJsonData = ''
-                  for (let j = i + 1; j < str.length; j++) {
-                    if (continueLooping) {
-                      if (str[j] !== seperator) {
-                        subJsonData += str[j]
-                      } else {
-                        // last seperator is also found
-                        // check if the next sub string has suffix
-                        let subSuffix = ''
-                        for (let k = j + 1; k < str.length; k++) {
-                          if (continueLooping) {
-                            subSuffix += str[k]
-                            if (subSuffix.length === suffix.length) {
-                              if (subSuffix === suffix) {
-                                // Last suffix is also found
-                                // Pattern found complete
-                                patternsFound.push({
-                                  type: subType,
-                                  data: JSON.parse(subJsonData),
-                                  startPosition: index - (prefix.length - 1),
-                                  endPosition: k,
-                                })
-                              }
-                              continueLooping = false
-                              index = k + 1
-                              subPattern = ''
-                              break
-                            }
-                          } else {
-                            break
-                          }
-                        }
-                      }
-                    } else {
-                      break
-                    }
-                  }
-                } else {
-                  // type is not valid
-                  // start searching again for the next character
-                  index = i + 1
-                  continueLooping = false
-                  subPattern = ''
-                  break
-                }
-              }
-            } else {
-              break
-            }
-          }
-        } else {
-          // pattern start is not found
-          subPattern = subPattern.substring(1)
-        }
-      }
-    }
-    return patternsFound
-  }
+  const { config } = props
+  const { elementTypes } = config
 
   const insertAfter = (newNode: Text | HTMLElement, existingNode: HTMLElement | Text) => {
     return existingNode?.parentNode?.insertBefore(newNode, existingNode.nextSibling)
@@ -141,7 +15,7 @@ export const Replacer = (props: IProps) => {
   const setHtml = (
     htmlString: string,
     nodes: HTMLElement[],
-    pattern: Pattern,
+    pattern: IPattern,
     parentNode: HTMLElement,
     referenceNode: HTMLElement | Text,
     onChangeReference: any,
@@ -201,12 +75,12 @@ export const Replacer = (props: IProps) => {
     ele?.childNodes.forEach((child: any, index: number) => {
       const work: {
         htmlString: string
-        pattern: Pattern
+        pattern: IPattern
       }[] = []
       if (child.nodeType === Node.TEXT_NODE) {
         html += child.textContent
         nodes.push(ele?.childNodes[index])
-        const patterns = getPatterns(html)
+        const patterns = getPatterns(html, config)
         let start = 0
         if (patterns.length) {
           patterns.forEach((pattern) => {
