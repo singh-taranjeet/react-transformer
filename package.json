@@ -1,6 +1,6 @@
 {
   "name": "@react-transformer/replacer",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Transform simple string patterns to React components",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -13,20 +13,20 @@
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run prettier && npm run lint",
-    "test":"jest --config jestconfig.json",
+    "test": "jest --config jestconfig.json",
     "test:dev": "jest --config jestconfig.json --watchAll",
     "pub": "npm publish --access public"
   },
   "keywords": [
     "react",
     "typescript",
-    "pattern-to-react-components"
+    "string to react components"
   ],
   "author": "Taranjeet Singh",
   "license": "MIT",
   "dependencies": {
     "@types/react": "^18.0.31",
-    "react": "^18.2.0",
+    "react": ">=16",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.3"
   },
@@ -42,7 +42,6 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jest": "^29.5.0",
-    "jest-canvas-mock": "^2.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "prettier": "^2.8.7",
     "ts-jest": "^29.1.0"
