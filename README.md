@@ -1,6 +1,4 @@
-# @react-transformer/replacer
-
-## Convert string text to React components
+# Convert string text to React components
 
 [![NPM version][npm-image]][npm-url]
 [![Build][github-build]][github-build-url]
@@ -82,7 +80,7 @@ render(
 )
 ```
 
-**Output**
+## Output
 
 Universities
 Admissions are opening [next week](some-url), so hurry up
