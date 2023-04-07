@@ -13,8 +13,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
-  render(ui, { wrapper: App, ...options })
+const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) => render(ui, { wrapper: App, ...options })
 
 export * from '@testing-library/react'
 export { customRender as render }
