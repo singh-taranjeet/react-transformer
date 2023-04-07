@@ -12,7 +12,14 @@ export const Replacer = (props: IReactTransformer) => {
     return existingNode?.parentNode?.insertBefore(newNode, existingNode.nextSibling)
   }
 
-  const setHtml = (htmlString: string, nodes: HTMLElement[], pattern: IPattern, parentNode: HTMLElement, referenceNode: HTMLElement | Text, onChangeReference: any) => {
+  const setHtml = (
+    htmlString: string,
+    nodes: HTMLElement[],
+    pattern: IPattern,
+    parentNode: HTMLElement,
+    referenceNode: HTMLElement | Text,
+    onChangeReference: any,
+  ) => {
     const data = pattern.data
     const elementType = pattern.type
     const Component = elementTypes[elementType]
