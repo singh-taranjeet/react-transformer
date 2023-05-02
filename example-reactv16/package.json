@@ -9,7 +9,7 @@
     "process": "^0.11.10"
   },
   "dependencies": {
-    "@react-transformer/replacer": "^1.0.11",
+    "@react-transformer/replacer": "^1.0.12",
     "@types/react": "16.8",
     "@types/react-dom": "16.8",
     "parcel": "^2.8.3",
