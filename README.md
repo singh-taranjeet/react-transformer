@@ -5,7 +5,7 @@
 ![npm-typescript]
 [![License][github-license]][github-license-url]
 
-[**Live Demo**](https://codesandbox.io/s/ancient-silence-epkl8r?file=/src/App.tsx)
+[**Live Demo**](https://singh-taranjeet.github.io/react-transformer/)
 
 ## Installation:
 

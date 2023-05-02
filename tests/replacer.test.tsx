@@ -1,7 +1,5 @@
 import * as React from 'react'
-import { render, screen } from './utils'
-
-import 'jest-canvas-mock'
+import { render, screen } from './test-tools'
 
 import { Replacer } from '../src'
 import { Button } from './components/Button'
@@ -23,7 +21,7 @@ const config = {
   },
 }
 
-describe('Renders correctly', () => {
+describe('Test: Replacer component', () => {
   it('renders without crashing', () => {
     render(
       <Replacer config={config}>
@@ -31,7 +29,8 @@ describe('Renders correctly', () => {
       </Replacer>,
     )
   })
-  it('replaces single pattern with components', () => {
+
+  it('Replaces valid pattern to react components', () => {
     render(
       <Replacer config={config}>
         <div data-testid={'test'}>
@@ -44,6 +43,20 @@ describe('Renders correctly', () => {
       </Replacer>,
     )
     const element = screen.getByTestId('test')
-    expect(element.textContent).toBe('correct and working')
+    const expectedResult = `correct and working`
+    expect(element.textContent).toBe(expectedResult)
+  })
+
+  it('Does not replace invalid pattern', () => {
+    const inValidString = `corr${PREFIX}${SEPERATOR}${SEPERATOR}bold${SEPERATOR}${JSON.stringify({
+      data: { text: 'ect and wor' },
+    })}${SEPERATOR}${SUFFIX}king`
+    render(
+      <Replacer config={config}>
+        <div data-testid={'test'}>{inValidString}</div>
+      </Replacer>,
+    )
+    const element = screen.getByTestId('test')
+    expect(element.textContent).toBe(inValidString)
   })
 })

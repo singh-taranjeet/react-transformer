@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '../../utils'
+import { render, screen } from '../../test-tools'
 import { Bold } from '.'
 
 describe('Renders Bold component', () => {
