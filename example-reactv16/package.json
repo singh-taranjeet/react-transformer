@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "@react-transformer/replacer": "^1.0.2",
+    "parcel": "^2.8.3",
+    "react": "16.0",
+    "react-dom": "16.0"
+  }
+}
