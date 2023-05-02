@@ -225,11 +225,13 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
     onChangeReference(newDiv)
     const container = document.getElementById(id)
     if (container) {
-      if (Number(REACT_VERSION) < 16.8) {
+      if (Number(REACT_VERSION)) {
         ReactDom.render(<Component data={data.data} />, container)
       } else {
-        const root = ReactDOMClient.createRoot(container)
-        root.render(<Component data={data.data} />)
+        // in future versions of react
+        // import ReactDOMClient from 'react-dom/client'
+        // const root = ReactDOMClient.createRoot(container)
+        // root.render(<Component data={data.data} />)
       }
     }
   }
