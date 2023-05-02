@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOMClient from 'react-dom/client'
+import ReactDom from 'react-dom'
 import { IReactTransformer, IPattern } from './types'
 import { getId, getPatterns } from './utils'
+
+const REACT_VERSION = parseFloat(React.version)
 
 export const Replacer = (props: IReactTransformer) => {
   const [componentId] = useState(getId())
@@ -37,8 +40,12 @@ export const Replacer = (props: IReactTransformer) => {
     onChangeReference(newDiv)
     const container = document.getElementById(id)
     if (container) {
-      const root = ReactDOMClient.createRoot(container)
-      root.render(<Component data={data.data} />)
+      if (Number(REACT_VERSION) < 16.8) {
+        ReactDom.render(<Component data={data.data} />, container)
+      } else {
+        const root = ReactDOMClient.createRoot(container)
+        root.render(<Component data={data.data} />)
+      }
     }
   }
 
@@ -161,6 +168,7 @@ export const Replacer = (props: IReactTransformer) => {
     const wrapperComponent = document.getElementById(`${componentId}`)
     if (wrapperComponent) {
       // startObserving(wrapperComponent);
+      console.log('react version' + REACT_VERSION)
       iterate(wrapperComponent)
     }
   })

@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import { Replacer } from '@react-transformer/replacer'
 
 interface IComponent {
@@ -13,9 +13,9 @@ const Button = (props: IComponent) => {
   return <button>{text}</button>
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-root.render(
-  <React.StrictMode>
+const root = document.getElementById('root') as HTMLElement
+ReactDOM.render(
+  <div>
     <Replacer
       config={{
         pattern: {
@@ -33,5 +33,6 @@ root.render(
         <p>{`<<|button|${JSON.stringify({ data: { text: 'Test Button' } })}|>>>`}</p>
       </div>
     </Replacer>
-  </React.StrictMode>,
+  </div>,
+  root,
 )
