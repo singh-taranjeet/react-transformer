@@ -188,7 +188,7 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
     const wrapperComponent = document.getElementById(`${componentId}`)
     if (wrapperComponent) {
       // startObserving(wrapperComponent);
-      console.log('react version' + REACT_VERSION)
+      // console.log('react version' + REACT_VERSION)
       this.iterate(wrapperComponent)
     }
   }
