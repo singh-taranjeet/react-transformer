@@ -9,6 +9,7 @@
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
     "build": "npm run build:esm && npm run build:cjs",
+    "dev": "tsc --watch && tsc --module commonjs --outDir dist/cjs --watch",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "prepare": "npm run build",
