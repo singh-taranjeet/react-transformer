@@ -45,7 +45,7 @@ describe('Test getPatterns method', () => {
             }])
         })
         it('Works with 2 suffix in end', () => {
-            const result = getPatterns(`hello ${prefix}${seperator}${elementType.button}${seperator}'{"data":{"text":"New Button 2"}}'${seperator}${suffix}${suffix}`, config);
+            const result = getPatterns(`hello ${prefix}${seperator}${elementType.button}${seperator}'{"data":{"text":"New Button 2"}}'${seperator}${suffix}${suffix} some more strings here`, config);
             expect(result).toStrictEqual([{
                 data: { data: { text: 'New Button 2' } },
                 startPosition: 6,

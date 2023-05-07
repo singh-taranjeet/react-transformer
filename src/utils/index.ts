@@ -49,16 +49,16 @@ export const getPatterns = (str: string, config: IConfig): IPattern[] => {
                               // check if JSON is valid
                               try {
                                 // click first and last single quotes
-                                let newJsonString = subJsonData;
-                                (() => {
-                                  if(newJsonString[0] === "'") {
-                                    newJsonString = newJsonString.substring(1);
+                                let newJsonString = subJsonData
+                                ;(() => {
+                                  if (newJsonString[0] === "'") {
+                                    newJsonString = newJsonString.substring(1)
                                   }
-                                  if(newJsonString[newJsonString.length -1] === "'") {
-                                    newJsonString = newJsonString.substring(0, newJsonString.length -1);
+                                  if (newJsonString[newJsonString.length - 1] === "'") {
+                                    newJsonString = newJsonString.substring(0, newJsonString.length - 1)
                                   }
                                 })()
-                                console.log("su", subJsonData, newJsonString)
+                                // console.log('subJsonData', subJsonData, newJsonString)
                                 patternsFound.push({
                                   type: subType,
                                   data: JSON.parse(newJsonString),
@@ -67,7 +67,7 @@ export const getPatterns = (str: string, config: IConfig): IPattern[] => {
                                 })
                               } catch (error) {
                                 // json was invalid
-                                console.log("Json was invalid", subJsonData);
+                                // console.log('Json was invalid', subJsonData)
                               }
                             }
                             continueLooping = false
