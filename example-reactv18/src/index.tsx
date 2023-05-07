@@ -30,10 +30,27 @@ const Strong = () => {
 const PREFIX = '<<';
 const SUFFIX = '>>';
 const SEPERATOR = '!';
+const JSON = '{"data":{"text":"ect and wor"}}';
 
 enum ELEMENT_TYPE {
   BUTTON = 'button',
   BOLD = 'bold'
+}
+const Temp = () => {
+  const [show, setShow] = React.useState(true)
+  const sep = '====';
+  const onClick = () => {
+    //setStr(`${sep}${str}${sep}`);
+    setShow(false);
+  }
+
+  return <div>
+    dsf
+    {
+      show ? <p  onClick={onClick} data-testid={'paragraph'}>corr{`${PREFIX}${SEPERATOR}bold${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}`}king</p> : null
+    }
+    <h1>Taranjeet</h1>
+  </div>
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -54,6 +71,10 @@ root.render(
     >
       <h1>Test</h1>
       <div>
+        <section>
+          <h1>Temp</h1>
+          <Temp></Temp>
+        </section>
         <p>{`corr<<!bold!{"data":{"text":"ect and wor"}}!>>king corr<<!bold!'{"data":{"name":"ect and wor"}}'!>>king corr<<!bold!'{"data":{"name":"ect and wor"}}'!>>king`}</p>
         <h1>String string</h1>
         <p>{`Hello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are you`}</p>
