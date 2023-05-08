@@ -3,8 +3,8 @@
     "exclude": [
       "dist",
       "node_modules",
-      "example-reactv16",
-      "example-reactv18"
+      "example-v16",
+      "example-v18"
     ],
     "compilerOptions": {
       "module": "esnext",

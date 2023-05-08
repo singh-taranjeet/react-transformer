@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { fireEvent, render, screen } from './test-tools'
+import { fireEvent, render, screen, waitFor } from './test-tools'
 
 import { Replacer } from '../src'
 import { Button } from './components/Button'
@@ -21,18 +21,22 @@ const config = {
   },
 }
 
-const JSON = '{"data":{"text":"ect and wor"}}';
-const expectedResult = `correct and working`;
+const JSON = '{"data":{"text":"ect and wor"}}'
+const expectedResult = `correct and working`
 
 const Temp = () => {
   const [str, setStr] = React.useState(`${PREFIX}${SEPERATOR}bold${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}`)
 
-  const sep = '====';
+  const sep = '===='
   const onClick = () => {
-    setStr(`${sep}${str}${sep}`);
+    setStr(`${sep}${str}${sep}`)
   }
 
-  return <p onClick={onClick} data-testid={'paragraph'}>corr{str}king</p>
+  return (
+    <p onClick={onClick} data-testid={'paragraph'}>
+      corr{str}king
+    </p>
+  )
 }
 
 describe('Test: Replacer component', () => {
@@ -120,24 +124,23 @@ describe('Test: Replacer component', () => {
     })
 
     describe('Component unmount', () => {
-
       it('Replaced patter gets removed when component unmounts', () => {
-
         const Temp = () => {
-
           const [str, setStr] = React.useState(true)
           const onClick = () => {
-            setStr(false);
+            setStr(false)
           }
-        
-          return <div>
-            {
-              str 
-              ? <p onClick={onClick}  data-testid={'paragraph'}>corr{`${PREFIX}${SEPERATOR}bold${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}`}king</p> 
-              : null
-            }
-            removed
-          </div>
+
+          return (
+            <div>
+              {str ? (
+                <p onClick={onClick} data-testid={'paragraph'}>
+                  corr{`${PREFIX}${SEPERATOR}bold${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}`}king
+                </p>
+              ) : null}
+              removed
+            </div>
+          )
         }
 
         render(
@@ -148,21 +151,18 @@ describe('Test: Replacer component', () => {
           </Replacer>,
         )
         const element = screen.getByTestId('test')
-        const paragraph = screen.getByTestId('paragraph');
-        fireEvent.click(paragraph);
+        const paragraph = screen.getByTestId('paragraph')
+        fireEvent.click(paragraph)
         expect(element.textContent).toBe('removed')
-
       })
-
     })
 
     describe('Works with string managed by state (does not adds new text nodes)', () => {
-      
       it('Replaces string rendered by state', () => {
         render(
           <Replacer config={config}>
             <div data-testid={'test'}>
-              <Temp></Temp>
+              <Temp />
             </div>
           </Replacer>,
         )
@@ -174,15 +174,19 @@ describe('Test: Replacer component', () => {
         render(
           <Replacer config={config}>
             <div data-testid={'test'}>
-              <Temp></Temp>
+              <Temp />
             </div>
           </Replacer>,
         )
         const element = screen.getByTestId('test')
-        const paragraph = screen.getByTestId('paragraph');
-        fireEvent.click(paragraph);
-        // paragraph.click();
-        expect(element.textContent).toBe(expectedResult)
+        const paragraph = screen.getByTestId('paragraph')
+        waitFor(
+          () => {
+            fireEvent.click(paragraph)
+            expect(element.textContent).toBe(expectedResult)
+          },
+          { timeout: 1000 },
+        )
       })
     })
   })

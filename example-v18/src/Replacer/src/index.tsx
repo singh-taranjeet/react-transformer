@@ -72,6 +72,7 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
     const id = getId()
     const newDiv = document.createElement('span')
     newDiv.setAttribute('id', id)
+    newDiv.setAttribute('data-text-replaced', pattern.patternText)
 
     // Empty all the text nodes
     for (let i = 0; i < nodes.length; i++) {

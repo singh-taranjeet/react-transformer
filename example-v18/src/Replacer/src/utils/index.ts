@@ -64,6 +64,7 @@ export const getPatterns = (str: string, config: IConfig): IPattern[] => {
                                   data: JSON.parse(newJsonString),
                                   startPosition: index - (prefix.length - 1),
                                   endPosition: k,
+                                  patternText: str.substring(index - (prefix.length - 1), k),
                                 })
                               } catch (error) {
                                 // json was invalid

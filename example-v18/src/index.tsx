@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import { Replacer } from '@react-transformer/replacer'
+import { Replacer } from './Replacer/src'
 
 interface IComponent {
   data: {
@@ -19,38 +19,56 @@ const Bold = (props: IComponent) => {
 }
 
 const Strong = () => {
-  
-  const [str, setStr] = useState(`Hello Taranjeet Singh <=========> ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Strong Text"}}'${SEPERATOR}${SUFFIX} ->>>>>>>>>>- `);
+  const [str, setStr] = useState(
+    `${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Strong Text"}}'${SEPERATOR}${SUFFIX}`,
+  )
   const onClick = () => {
-    setStr(`added another ==_------_== ${str}`);
+    setStr(`${Math.random()} added another=> ${str} pl`)
   }
   return <strong onClick={onClick}>Strong {str}</strong>
 }
 
-const PREFIX = '<<';
-const SUFFIX = '>>';
-const SEPERATOR = '!';
-const JSON = '{"data":{"text":"ect and wor"}}';
+const PREFIX = '<<'
+const SUFFIX = '>>'
+const SEPERATOR = '!'
+const JSON = '{"data":{"text":"ect and wor"}}'
 
 enum ELEMENT_TYPE {
   BUTTON = 'button',
-  BOLD = 'bold'
+  BOLD = 'bold',
 }
 const Temp = () => {
   const [show, setShow] = React.useState(true)
-  const sep = '====';
+  const sep = '===='
   const onClick = () => {
     //setStr(`${sep}${str}${sep}`);
-    setShow(false);
+    setShow(false)
   }
 
-  return <div>
-    dsf
-    {
-      show ? <p  onClick={onClick} data-testid={'paragraph'}>corr{`${PREFIX}${SEPERATOR}bold${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}`}king</p> : null
-    }
-    <h1>Taranjeet</h1>
-  </div>
+  return (
+    <div>
+      dsf
+      {show ? null : (
+        <p data-testid={'paragraph'}>
+          corr{`${PREFIX}${SEPERATOR}bold${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}`}king Taranjeet Singh
+        </p>
+      )}
+      <h1 onClick={onClick}>Taranjeet</h1>
+    </div>
+  )
+}
+
+const Temp2 = () => {
+  const [str, setStr] = React.useState(`<<!bold!'{"data":{"text":"ect and wor"}}'!>>king`)
+  const onClick = () => {
+    setStr(`corr${str}`)
+  }
+
+  return (
+    <p onClick={onClick} data-testid={'paragraph'}>
+      {str}
+    </p>
+  )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -65,7 +83,7 @@ root.render(
         },
         elementTypes: {
           [ELEMENT_TYPE.BUTTON]: Button,
-          [ELEMENT_TYPE.BOLD]: Bold
+          [ELEMENT_TYPE.BOLD]: Bold,
         },
       }}
     >
@@ -73,7 +91,7 @@ root.render(
       <div>
         <section>
           <h1>Temp</h1>
-          <Temp></Temp>
+          <Temp2></Temp2>
         </section>
         <p>{`corr<<!bold!{"data":{"text":"ect and wor"}}!>>king corr<<!bold!'{"data":{"name":"ect and wor"}}'!>>king corr<<!bold!'{"data":{"name":"ect and wor"}}'!>>king`}</p>
         <h1>String string</h1>
@@ -84,7 +102,9 @@ root.render(
         <p>{`Hello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BOLD}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are you`}</p>
         <Strong></Strong>
         <p>{`Hello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are you`}</p>
-        <p>{`Hello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BOLD}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are you`}</p>
+        <p
+          style={{ backgroundColor: 'red' }}
+        >{`Hello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are you Hello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are youHello Taranjeet Singh <<!bold!'{"data":{"text":"Test Button"}}'!>> How are you`}</p>
       </div>
       <div>
         <h1>Multiple patterns in single string</h1>

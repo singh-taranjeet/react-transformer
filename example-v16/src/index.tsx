@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Replacer } from '@react-transformer/replacer'
+import { Replacer } from '../../src/index'
 
 interface IComponent {
   data: {
