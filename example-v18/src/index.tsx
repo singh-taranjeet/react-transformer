@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import { Replacer } from './Replacer/src'
+import { Replacer } from '@react-transformer/replacer'
 
 interface IComponent {
   data: {
@@ -42,7 +42,9 @@ const Temp = () => {
   const sep = '===='
   const onClick = () => {
     //setStr(`${sep}${str}${sep}`);
-    setShow(false)
+    setInterval(() => {
+      setShow(!show)
+    }, 10)
   }
 
   return (
@@ -61,7 +63,9 @@ const Temp = () => {
 const Temp2 = () => {
   const [str, setStr] = React.useState(`<<!bold!'{"data":{"text":"ect and wor"}}'!>>king`)
   const onClick = () => {
-    setStr(`corr${str}`)
+    setInterval(() => {
+      setStr(`corr${str}`)
+    }, 5)
   }
 
   return (
@@ -87,7 +91,7 @@ root.render(
         },
       }}
     >
-      <h1>Test</h1>
+      <h1>Test#1</h1>
       <div>
         <section>
           <h1>Temp</h1>
@@ -110,6 +114,7 @@ root.render(
         <h1>Multiple patterns in single string</h1>
         <p>{`Hello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are youHello Taranjeet Singh ${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BUTTON}${SEPERATOR}'{"data":{"text":"Test Button"}}'${SEPERATOR}${SUFFIX} How are you`}</p>
       </div>
+      
     </Replacer>
   </React.StrictMode>,
 )

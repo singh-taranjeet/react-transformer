@@ -1,31 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDom from 'react-dom'
 import { IReactTransformer, IPattern } from './types'
 import { getId, getPatterns } from './utils'
 
-export class Replacer extends React.Component<IReactTransformer, { componentId: string }> {
-  constructor(props: IReactTransformer) {
-    super(props)
-    this.state = {
-      componentId: getId(),
-    }
-  }
+export const Replacer = (props: IReactTransformer) => {
+  const [componentId, setComponentId] = useState('')
 
-  componentDidMount(): void {
-    const { componentId } = this.state
+  useEffect(() => {
+    const id = getId()
+    setComponentId(id)
+  }, [])
+
+  useEffect(() => {
     const wrapperComponent = document.getElementById(`${componentId}`)
     if (wrapperComponent) {
-      this.startObserving(wrapperComponent)
-      // console.log('react version' + REACT_VERSION)
-      this.iterate(wrapperComponent)
+      startObserving(wrapperComponent)
+      iterate(wrapperComponent)
     }
-  }
+  }, [componentId])
 
-  insertAfter = (newNode: Text | HTMLElement, existingNode: HTMLElement | Text) => {
+  const insertAfter = (newNode: Text | HTMLElement, existingNode: HTMLElement | Text) => {
     return existingNode?.parentNode?.insertBefore(newNode, existingNode.nextSibling)
   }
 
-  startObserving = (targetNode: HTMLElement) => {
+  const startObserving = (targetNode: HTMLElement) => {
     // Options for the observer (which mutations to observe)
     const config = { attributes: true, childList: true, subtree: true }
 
@@ -35,7 +33,7 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
         // console.log("Mutation type", mutation.type)
         if (mutation.type === 'childList' || mutation.type === 'subtree') {
           mutation.addedNodes.forEach((addedNode: HTMLElement) => {
-            this.iterate(addedNode)
+            iterate(addedNode)
           })
         } else if (mutation.type === 'attributes') {
           // console.log(`The ${mutation.attributeName} attribute was modified.`);
@@ -55,7 +53,7 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
     // observer.disconnect();
   }
 
-  setHtml = (
+  const setHtml = (
     htmlString: string,
     nodes: HTMLElement[],
     pattern: IPattern,
@@ -63,7 +61,7 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
     referenceNode: HTMLElement | Text,
     onChangeReference: any,
   ) => {
-    const { config } = this.props
+    const { config } = props
     const { elementTypes } = config
     const data = pattern.data
     const elementType = pattern.type
@@ -77,7 +75,7 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
     for (let i = 0; i < nodes.length; i++) {
       nodes[i].textContent = ''
     }
-    this.insertAfter(newDiv, referenceNode)
+    insertAfter(newDiv, referenceNode)
     parentNode.insertBefore(first, newDiv)
     onChangeReference(newDiv)
     const container = document.getElementById(id)
@@ -87,10 +85,10 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
     return newDiv
   }
 
-  iterate = (ele: HTMLElement) => {
+  const iterate = (ele: HTMLElement) => {
     let html = ''
     let nodes: any[] = []
-    const { config } = this.props
+    const { config } = props
     const empty = () => {
       html = ''
       nodes = []
@@ -127,15 +125,14 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
             const { htmlString, pattern } = workItem
             tempNode = newDiv()
             if (j === 0) {
-              ref = this.insertAfter(tempNode, nodes[0])
+              ref = insertAfter(tempNode, nodes[0])
             } else if (ref) {
-              this.insertAfter(tempNode, ref)
+              insertAfter(tempNode, ref)
             }
             if (ref) {
-              const addedTransformerElement = this.setHtml(htmlString, nodes, pattern, ele, ref, onChangeReference)
+              const addedTransformerElement = setHtml(htmlString, nodes, pattern, ele, ref, onChangeReference)
               // Add some call back when ever the inner html changes to clear the added Transformer node
               ele.addEventListener('DOMSubtreeModified', () => {
-                // console.log("Parent Node was modified", ele.innerText);
                 /**
                  * If patterns are found in this node
                  * Remove the existing Transformer node
@@ -143,14 +140,12 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
                  */
                 // console.log("Patterns found", getPatterns(ele.innerText, config));
                 const notInProgress = ele.getAttribute('data-in-progress') === '0'
-                // console.log("In preogress", inProgress)
+
                 if (getPatterns(ele.innerText, config).length && notInProgress) {
-                  // set opacity of the added transformer element to 0
-                  // const html = addedTransformerElement.getAttribute('data-text-replaced');
-                  //const textNode = document.createTextNode(html || '');
+                  // Remove added transformer child
                   addedTransformerElement?.parentNode?.removeChild(addedTransformerElement)
                   // Convert the existing patterns
-                  this.iterate(ele)
+                  iterate(ele)
                 }
               })
               ele.removeChild(tempNode)
@@ -160,24 +155,19 @@ export class Replacer extends React.Component<IReactTransformer, { componentId: 
           // set html for the last part
           if (ref) {
             const last = document.createTextNode(html.substring(start))
-            this.insertAfter(last, ref)
+            insertAfter(last, ref)
           }
 
           empty()
         }
       } else {
-        this.iterate(child)
+        iterate(child)
         empty()
       }
     })
   }
 
-  render() {
-    const { componentId } = this.state
-    const { children } = this.props
+  const { children } = props
 
-    console.log('Render 4')
-
-    return <div id={componentId}>{children}</div>
-  }
+  return <div id={componentId}>{children}</div>
 }
