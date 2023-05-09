@@ -67,7 +67,7 @@ export const getPatterns = (str: string, config: IConfig): IPattern[] => {
                                 })
                               } catch (error) {
                                 // json was invalid
-                                // console.log('Json was invalid', subJsonData)
+                                continueLooping = false
                               }
                             }
                             continueLooping = false
@@ -75,8 +75,6 @@ export const getPatterns = (str: string, config: IConfig): IPattern[] => {
                             subPattern = ''
                             break
                           }
-                        } else {
-                          break
                         }
                       }
                     }
