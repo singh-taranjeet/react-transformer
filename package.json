@@ -55,8 +55,5 @@
     "dist",
     "LICENSE",
     "README.md"
-  ],
-  "dependencies": {
-    "@react-transformer/replacer": "^1.0.17"
-  }
+  ]
 }
