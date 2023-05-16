@@ -5,7 +5,7 @@
 ![npm-typescript]
 [![License][github-license]][github-license-url]
 
-[**Live Demo**](https://codesandbox.io/s/react-transformer-41m0xr?file=/src/App.tsx)
+## [**Live Demo**](https://codesandbox.io/s/react-transformer-41m0xr?file=/src/App.tsx)
 
 ## Installation:
 
