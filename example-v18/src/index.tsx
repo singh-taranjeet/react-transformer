@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {Replacer} from '@react-transformer/replacer'
-import {createRoot} from 'react-dom/client'
+// import {Replacer} from '@react-transformer/replacer'
+import {Replacer} from './Replacer';
+import {createRoot} from 'react-dom/client';
 interface IComponent {
   data: {
     text: string
@@ -88,19 +89,19 @@ const App = () => {
         }}
       >
         <section>
-          <h1>String Managed By State</h1>
+          <h1>1. String Managed By State</h1>
           <StringManagedByState></StringManagedByState>
         </section>
 
         {/* Multiple patterns in single string */}
         <section>
-          <h1>Multiple patterns in single string</h1>
+          <h1>2. Multiple patterns in single string</h1>
           <p>{`corr<<!bold!{"data":{"text":"ect and wor"}}!>>king corr<<!bold!'{"data":{"text":"ect and wor"}}'!>>king corr<<!bold!'{"data":{"text":"ect and wor"}}'!>>king`}</p>
         </section>
 
         {/* Multiple variable strings */}
         <section>
-          <h1>Multiple variable strings</h1>
+          <h1>3. Multiple variable strings</h1>
           <p>
             corr
             {`${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BOLD}${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}king corr${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BOLD}${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}king||corr${PREFIX}${SEPERATOR}${ELEMENT_TYPE.BOLD}${SEPERATOR}${JSON}${SEPERATOR}${SUFFIX}`}
@@ -110,8 +111,14 @@ const App = () => {
         </section>
 
         <section>
-          <h1>Show hide pattern test</h1>
+          <h1>4. Show hide pattern test</h1>
           <ShowHideString />
+        </section>
+      </Replacer>
+      <Replacer>
+      <section>
+          <h1>5. Default configuration</h1>
+          {`co<<|BOLD|rr|>>ect <<|ITALIC|and|>> wor <<|H1|king|>>`}
         </section>
       </Replacer>
     </div>
