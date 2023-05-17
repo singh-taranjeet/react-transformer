@@ -203,7 +203,7 @@ describe('Test: Replacer component', () => {
       expect(element.textContent).toBe(inValidString)
     })
     it('Correct pattern and invalid json', () => {
-      const inValidString = `corr${PREFIX}${SEPERATOR}bold${SEPERATOR}'{data:{"text":"text"}}'${SEPERATOR}${SUFFIX}king`
+      const inValidString = `corr${PREFIX}${SEPERATOR}bold${SEPERATOR}'{"data":{"text:"text"}}'${SEPERATOR}${SUFFIX}king`
       render(
         <Replacer config={config}>
           <div data-testid={'test'}>{inValidString}</div>

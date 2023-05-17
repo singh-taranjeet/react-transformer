@@ -86,6 +86,16 @@ describe('Test getPatterns method', () => {
                     type: ELEMENT_TYPES.BOLD
                 }])
             })
+
+            it('Is able to identify valid pattern without json data', () => {
+                const result = getPatterns(`<<|BOLD|Test button 1|>>`);
+                expect(result).toStrictEqual([{
+                    data: 'Test button 1',
+                    startPosition: 0,
+                    endPosition: 23,
+                    type: ELEMENT_TYPES.BOLD
+                }])
+            })
         })
     })
 

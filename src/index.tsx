@@ -80,7 +80,8 @@ export const Replacer = (props: IReactTransformer) => {
     onChangeReference(newDiv)
     const container = document.getElementById(id)
     if (container) {
-      ReactDom.render(<Component data={data.data} />, container)
+      const propsData = typeof data === 'string' ? {data: {text: data}} : data.data;
+      ReactDom.render(<Component data={propsData} />, container)
     }
     return newDiv
   }
