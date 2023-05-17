@@ -1,6 +1,8 @@
-import { IConfig, IPattern } from '../types'
+import { IPattern } from '../types'
+import { defaultConfig } from './constants'
 
-export const getPatterns = (str: string, config: IConfig): IPattern[] => {
+export const getPatterns = (str: string, config = defaultConfig): IPattern[] => {
+
   const { suffix, prefix, seperator } = config.pattern
   const { elementTypes } = config
   let subPattern = ''
