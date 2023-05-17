@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom/client'
-import { Replacer } from '@react-transformer/replacer'
+import 'react-app-polyfill/ie11';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Replacer } from '../.';
+import { useState } from 'react';
 
 interface IComponent {
   data: {
@@ -75,10 +77,10 @@ const Temp2 = () => {
   )
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-root.render(
-  <React.StrictMode>
-    <Replacer
+const App = () => {
+  return (
+    <div>
+      <Replacer
       config={{
         pattern: {
           prefix: PREFIX,
@@ -116,5 +118,8 @@ root.render(
       </div>
       
     </Replacer>
-  </React.StrictMode>,
-)
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));

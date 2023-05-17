@@ -2,31 +2,55 @@
   "name": "@react-transformer/replacer",
   "version": "1.0.19",
   "description": "Transform simple string patterns to React components",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/replacer.esm.js",
   "types": "./dist/esm/index.d.ts",
   "scripts": {
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
-    "build": "npm run build:esm && npm run build:cjs",
-    "dev": "tsc --watch && tsc --module commonjs --outDir dist/cjs --watch",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run prettier && npm run lint",
+    "prepublishOnly": "npm run test && npm run prettier && npm run lint",
     "test": "jest --config jestconfig.json",
     "test:dev": "jest --config jestconfig.json --watchAll",
     "test:coverage": "jest --config jestconfig.json --coverage",
     "pub": "npm publish --access public",
-    "lint:fix": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\" --fix"
+    "lint:fix": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\" --fix",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "engines": {
+    "node": ">=10"
   },
   "keywords": [
     "react",
     "typescript",
     "string to react components"
   ],
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "author": "Taranjeet Singh",
   "license": "MIT",
+  "size-limit": [
+    {
+      "path": "dist/trans.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/trans.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.0",
@@ -45,6 +69,19 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ts-jest": "^29.1.0",
+    "@babel/core": "^7.21.8",
+    "@size-limit/preset-small-lib": "^8.2.4",
+    "@storybook/addon-essentials": "^7.0.12",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^7.0.12",
+    "@storybook/addons": "^7.0.12",
+    "@storybook/react": "^7.0.12",
+    "babel-loader": "^9.1.2",
+    "husky": "^8.0.3",
+    "react-is": "^18.2.0",
+    "size-limit": "^8.2.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.5.0",
     "typescript": "^5.0.4"
   },
   "repository": {
