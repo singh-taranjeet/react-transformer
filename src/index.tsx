@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactDom from 'react-dom'
 import { IReactTransformer, IPattern } from './types'
 import { getId, getPatterns } from './utils'
+import { defaultConfig } from './utils/constants'
 
 export const Replacer = (props: IReactTransformer) => {
   const [componentId, setComponentId] = useState('')
@@ -61,7 +62,7 @@ export const Replacer = (props: IReactTransformer) => {
     referenceNode: HTMLElement | Text,
     onChangeReference: any,
   ) => {
-    const { config } = props
+    const { config = defaultConfig } = props
     const { elementTypes } = config
     const data = pattern.data
     const elementType = pattern.type
@@ -80,7 +81,7 @@ export const Replacer = (props: IReactTransformer) => {
     onChangeReference(newDiv)
     const container = document.getElementById(id)
     if (container) {
-      const propsData = typeof data === 'string' ? {data: {text: data}} : data.data;
+      const propsData = typeof data === 'string' ? data : data.data;
       ReactDom.render(<Component data={propsData} />, container)
     }
     return newDiv

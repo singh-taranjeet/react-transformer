@@ -96,6 +96,24 @@ describe('Test getPatterns method', () => {
                     type: ELEMENT_TYPES.BOLD
                 }])
             })
+
+            it('Works with multiple strings', () => {
+                const result = getPatterns(`corr<<|BOLD|ect|>> and <<|H1|work|>> ing.`);
+                expect(result).toStrictEqual([
+                    {
+                        data: 'ect',
+                        startPosition: 4,
+                        endPosition: 17,
+                        type: ELEMENT_TYPES.BOLD
+                    },
+                    {
+                        data: 'work',
+                        startPosition: 23,
+                        endPosition: 35,
+                        type: ELEMENT_TYPES.H1
+                    }
+                ])
+            })
         })
     })
 

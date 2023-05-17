@@ -1,64 +1,64 @@
 import React from 'react';
 
-export const I = (props: {children: React.ReactNode}) => {
+export const I = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <i>{children}</i>
+    return <i>{data}</i>
 }
 
-export const B = (props: {children: React.ReactNode}) => {
+export const B = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <b>{children}</b>
+    return <b>{data}</b>
 }
 
-export const H1 = (props: {children: React.ReactNode}) => {
+export const H1 = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <h1>{children}</h1>
+    return <h1>{data}</h1>
 }
 
-export const H2 = (props: {children: React.ReactNode}) => {
+export const H2 = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <h2>{children}</h2>
+    return <h2>{data}</h2>
 }
 
-export const H3 = (props: {children: React.ReactNode}) => {
+export const H3 = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <h3>{children}</h3>
+    return <h3>{data}</h3>
 }
 
-export const H4 = (props: {children: React.ReactNode}) => {
+export const H4 = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <h4>{children}</h4>
+    return <h4>{data}</h4>
 }
 
-export const H5 = (props: {children: React.ReactNode}) => {
+export const H5 = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <h5>{children}</h5>
+    return <h5>{data}</h5>
 }
 
-export const H6 = (props: {children: React.ReactNode}) => {
+export const H6 = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <h6>{children}</h6>
+    return <h6>{data}</h6>
 }
 
-export const P = (props: {children: React.ReactNode}) => {
+export const P = (props: {data: React.ReactNode}) => {
 
-    const {children} = props;
+    const {data} = props;
 
-    return <p>{children}</p>
+    return <p>{data}</p>
 }
