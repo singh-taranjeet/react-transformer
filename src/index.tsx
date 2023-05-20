@@ -96,14 +96,14 @@ export const Replacer = (props: IReactTransformer) => {
       nodes = []
     }
     // Iterate every child node
-    ele?.childNodes.forEach((child: any, index: number) => {
+    ele?.childNodes.forEach((child: any) => {
       const work: {
         htmlString: string
         pattern: IPattern
       }[] = []
       if (child.nodeType === Node.TEXT_NODE) {
         html += child.textContent
-        nodes.push(ele?.childNodes[index])
+        nodes.push(child)
         const patterns = getPatterns(html, config)
         let start = 0
         if (patterns.length) {
