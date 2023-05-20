@@ -40,6 +40,7 @@ const Temp = () => {
 }
 
 describe('Test: Replacer component', () => {
+
   describe('Renders without crash', () => {
     it('renders without crashing', () => {
       render(
@@ -95,6 +96,53 @@ describe('Test: Replacer component', () => {
       })
     })
 
+    describe('Default-Config: Simple patterns', () => {
+
+      it('Default-Config: Simple valid pattern', () => {
+        render(
+          <Replacer>
+            <div data-testid={'test'}>
+              corr
+              {`<<|BOLD|ect and wor|>>`}
+              king
+            </div>
+          </Replacer>,
+        )
+        const element = screen.getByTestId('test')
+        expect(element.textContent).toBe('correct and working')
+      })
+
+      it('Valid pattern: extra suffix', () => {
+        render(
+          <Replacer>
+            <div data-testid={'test'}>
+              corr
+              {`<<|BOLD|ect and wor|>>>>`}
+              king
+            </div>
+          </Replacer>,
+        )
+        const element = screen.getByTestId('test')
+        const expectedResult = `correct and wor>>king`
+        expect(element.textContent).toBe(expectedResult)
+      })
+
+      it('Valid pattern: extra prefix', () => {
+        render(
+          <Replacer>
+            <div data-testid={'test'}>
+              corr
+              {`${PREFIX}${PREFIX}${SEPERATOR}BOLD${SEPERATOR}ect and wor${SEPERATOR}${SUFFIX}`}
+              king
+            </div>
+          </Replacer>,
+        )
+        const element = screen.getByTestId('test')
+        const expectedResult = `corr${PREFIX}ect and working`
+        expect(element.textContent).toBe(expectedResult)
+      })
+    })
+
     describe('Complex string', () => {
       it('Multiple pattern in single string', () => {
         render(
@@ -119,6 +167,34 @@ describe('Test: Replacer component', () => {
         )
         const element = screen.getByTestId('test')
         const expectedResult = `corr<<|bold|'{"data":{"text":"ect and wor"}}'|<>>king correct and working corr<<|boldd|'{"data":{"text":"ect and wor"}}'|>>king`
+        expect(element.textContent).toBe(expectedResult)
+      })
+    })
+
+    describe('Default-Config: Complex string', () => {
+      it('Multiple pattern in single string', () => {
+        render(
+          <Replacer>
+            <div data-testid={'test'}>
+              {`corr<<|BOLD|ect and wor|>>king corr<<|BOLD|ect and wor|>>king corr<<|BOLD|ect and wor|>>king`}
+            </div>
+          </Replacer>,
+        )
+        const element = screen.getByTestId('test')
+        const expectedResult = `correct and working correct and working correct and working`
+        expect(element.textContent).toBe(expectedResult)
+      })
+
+      it('Multiple valid and invalid patterns in single string', () => {
+        render(
+          <Replacer>
+            <div data-testid={'test'}>
+              {`corr<<|BOLD|ect and wor|<>>king corr<<|BOLD|ect and wor|>>king corr<<|BOLDd|ect and wor|>>king`}
+            </div>
+          </Replacer>,
+        )
+        const element = screen.getByTestId('test')
+        const expectedResult = `corr<<|BOLD|ect and wor|<>>king correct and working corr<<|BOLDd|ect and wor|>>king`
         expect(element.textContent).toBe(expectedResult)
       })
     })
@@ -203,7 +279,7 @@ describe('Test: Replacer component', () => {
       expect(element.textContent).toBe(inValidString)
     })
     it('Correct pattern and invalid json', () => {
-      const inValidString = `corr${PREFIX}${SEPERATOR}bold${SEPERATOR}'{data:{"text":"text"}}'${SEPERATOR}${SUFFIX}king`
+      const inValidString = `corr${PREFIX}${SEPERATOR}bold${SEPERATOR}'{"data":{"text:"text"}}'${SEPERATOR}${SUFFIX}king`
       render(
         <Replacer config={config}>
           <div data-testid={'test'}>{inValidString}</div>

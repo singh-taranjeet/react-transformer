@@ -1,6 +1,8 @@
-import { IConfig, IPattern } from '../types'
+import { IPattern } from '../types'
+import { defaultConfig } from './constants'
 
-export const getPatterns = (str: string, config: IConfig): IPattern[] => {
+export const getPatterns = (str: string, config = defaultConfig): IPattern[] => {
+
   const { suffix, prefix, seperator } = config.pattern
   const { elementTypes } = config
   let subPattern = ''
@@ -47,33 +49,44 @@ export const getPatterns = (str: string, config: IConfig): IPattern[] => {
                               // Last suffix is also found
                               // Pattern found complete
                               // check if JSON is valid
-                              try {
-                                // click first and last single quotes
-                                let newJsonString = subJsonData
-                                ;(() => {
-                                  if (newJsonString[0] === "'") {
-                                    newJsonString = newJsonString.substring(1)
-                                  }
-                                  if (newJsonString[newJsonString.length - 1] === "'") {
-                                    newJsonString = newJsonString.substring(0, newJsonString.length - 1)
-                                  }
-                                })()
-                                // console.log('subJsonData', subJsonData, newJsonString)
+                              if (subJsonData.includes('{"data":{')) {
+                                try {
+                                  // click first and last single quotes
+                                  let newJsonString = subJsonData;
+                                  (() => {
+                                    if (newJsonString[0] === "'") {
+                                      newJsonString = newJsonString.substring(1)
+                                    }
+                                    if (newJsonString[newJsonString.length - 1] === "'") {
+                                      newJsonString = newJsonString.substring(0, newJsonString.length - 1)
+                                    }
+                                  })();
+                                  // console.log('subJsonData', subJsonData, newJsonString)
+                                  patternsFound.push({
+                                    type: subType,
+                                    data: JSON.parse(newJsonString),
+                                    startPosition: index - (prefix.length - 1),
+                                    endPosition: k,
+                                  });
+                                } catch (error) {
+                                  // json was not found
+                                  continueLooping = false;
+                                }
+                              }
+                              else {
+                                // data is not a json but a string
                                 patternsFound.push({
                                   type: subType,
-                                  data: JSON.parse(newJsonString),
+                                  data: subJsonData,
                                   startPosition: index - (prefix.length - 1),
                                   endPosition: k,
-                                })
-                              } catch (error) {
-                                // json was invalid
-                                continueLooping = false
+                                });
                               }
                             }
-                            continueLooping = false
-                            index = k + 1
-                            subPattern = ''
-                            break
+                            continueLooping = false;
+                            index = k + 1;
+                            subPattern = '';
+                            break;
                           }
                         }
                       }
