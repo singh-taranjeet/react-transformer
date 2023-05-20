@@ -9,7 +9,7 @@ export interface IConfig {
   }
 }
 export interface IReactTransformer {
-  config: IConfig
+  config?: IConfig
   children: React.ReactNode
 }
 
