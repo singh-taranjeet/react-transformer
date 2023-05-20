@@ -26,7 +26,7 @@ export const Replacer = (props: IReactTransformer) => {
 
   const startObserving = (targetNode: HTMLElement) => {
     // Options for the observer (which mutations to observe)
-    const config = { attributes: true, childList: true, subtree: true }
+    const config = { attributes: true, childList: true, subtree: true, characterData: true }
 
     // Callback function to execute when mutations are observed
     const callback = (mutationList: any) => {
@@ -36,8 +36,12 @@ export const Replacer = (props: IReactTransformer) => {
           mutation.addedNodes.forEach((addedNode: HTMLElement) => {
             iterate(addedNode)
           })
-        } else if (mutation.type === 'attributes') {
-          // console.log(`The ${mutation.attributeName} attribute was modified.`);
+        } else if (mutation.type === 'characterData') {
+          // Check this node is already managed by iterate function
+          const isManaged = mutation.target.parentNode.getAttribute('data-transformer-managed');
+          if(!isManaged) {
+            iterate(mutation.target.parentNode);
+          }    
         }
       }
     }
@@ -88,13 +92,16 @@ export const Replacer = (props: IReactTransformer) => {
   }
 
   const iterate = (ele: HTMLElement) => {
-    let html = ''
-    let nodes: any[] = []
-    const { config } = props
+    // Store all html text in concurrent text nodes
+    let html = '';
+    
+    // Store all concurrent text nodes
+    let nodes: any[] = [];
+    const { config = defaultConfig } = props;
     const empty = () => {
       html = ''
       nodes = []
-    }
+    };
     // Iterate every child node
     ele?.childNodes.forEach((child: any) => {
       const work: {
@@ -121,7 +128,7 @@ export const Replacer = (props: IReactTransformer) => {
           const onChangeReference = (node: any) => {
             ref = node
           }
-          ele.setAttribute('data-in-progress', '1')
+          ele.setAttribute('data-transformer-managed', '1')
           // set html for all
           work.forEach((workItem, j) => {
             const { htmlString, pattern } = workItem
@@ -141,7 +148,7 @@ export const Replacer = (props: IReactTransformer) => {
                  * scan the patterns and convert them
                  */
                 // console.log("Patterns found", getPatterns(ele.innerText, config));
-                const notInProgress = ele.getAttribute('data-in-progress') === '0'
+                const notInProgress = ele.getAttribute('data-transformer-managed') === '0'
 
                 if (getPatterns(ele.innerText, config).length && notInProgress) {
                   // Remove added transformer child
@@ -153,7 +160,7 @@ export const Replacer = (props: IReactTransformer) => {
               ele.removeChild(tempNode)
             }
           })
-          ele.setAttribute('data-in-progress', '0')
+          ele.setAttribute('data-transformer-managed', '0')
           // set html for the last part
           if (ref) {
             const last = document.createTextNode(html.substring(start))
