@@ -40,9 +40,7 @@ enum ELEMENT_TYPE {
 const ShowHideString = () => {
   const [show, setShow] = React.useState(true)
   const onClick = () => {
-    setInterval(() => {
-      setShow(!show)
-    }, 10)
+    setShow(!show)
   }
 
   return (
@@ -60,9 +58,8 @@ const ShowHideString = () => {
 const StringManagedByState = () => {
   const [str, setStr] = React.useState(`<<!bold!'{"data":{"text":"ect and wor"}}'!>>king`)
   const onClick = () => {
-    setInterval(() => {
-      setStr(`corr${str}`)
-    }, 5)
+    setStr(`corr${str} corr${str}`);
+    console.log("done", `corr${str} corr${str}`)
   }
 
   return (
@@ -72,9 +69,24 @@ const StringManagedByState = () => {
   )
 }
 
+const MiniCms = (props: {cms: string}) => {
+
+  return (
+    <p>{props.cms}</p>
+  );
+
+}
+
 const App = () => {
+
+  const [cms, setCms] = useState('');
+
   return (
     <div>
+      <section>
+        <p>{'Corr<<|BOLD|ect and |>> working'}</p>
+        <input type="text" value={cms} onChange={(e: any) => setCms(e.target.value)} />
+      </section>
       <Replacer
         config={{
           pattern: {
@@ -119,6 +131,11 @@ const App = () => {
       <section>
           <h1>5. Default configuration</h1>
           {`co<<|BOLD|rr|>>ect <<|ITALIC|and|>> wor <<|H1|king|>>`}
+        </section>
+
+        <section>
+          <h1>6. Dynamic string and get updated</h1>
+          <MiniCms cms={cms} />
         </section>
       </Replacer>
     </div>
