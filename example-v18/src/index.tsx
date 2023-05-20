@@ -59,7 +59,7 @@ const StringManagedByState = () => {
   const [str, setStr] = React.useState(`<<!bold!'{"data":{"text":"ect and wor"}}'!>>king`)
   const onClick = () => {
     setStr(`corr${str} corr${str}`);
-    console.log("done", `corr${str} corr${str}`)
+    // console.log("done", `corr${str} corr${str}`)
   }
 
   return (
